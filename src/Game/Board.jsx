@@ -28,7 +28,14 @@ const Board = () =>{
         return false;
     };
 
+        const checkTie = () => {
+        if (checkWinner()) return false;
+        return state.every((box) => box !== null);
+    
+    };
+
     const isWinner = checkWinner();
+    const isTie = checkTie();
     
     const handleClick = (index)=> {
 
@@ -45,14 +52,21 @@ const Board = () =>{
     const handleReset = () => {
         setState(Array(9).fill(null));
     };
+     
     
     return(
         <div className="flex flex-col items-center justify-center  "> 
             {isWinner ? (
                 <>{isWinner} won the game <button onClick={handleReset} className="cursor-pointer bg-gray-800 border-2 hover.shadow-lg">Play Again</button> </>
                 ): 
+
+                isTie ? (
+                    <>{isTie} It's a Tie! <button onClick={handleReset} className="cursor-pointer bg-gray-800 border-2 hover.shadow-lg">Play Again</button> </>
+                ) :
+                
                 (<>{isXturn ? "X" : "O"}'s turn</>
                 )
+            
             }
             <>
             <div className="flex flex-row justify-center items-center "> 
